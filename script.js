@@ -15,7 +15,11 @@ function operate(firstNum, operator, secondNum) {
          output = firstNum - secondNum;
          break;
       case "/":
-         output = firstNum / secondNum;
+         if(secondNum == 0) {
+            output = "Can't be divided by 0";
+         } else {
+            output = firstNum / secondNum;
+         }
          break;
       case "X":
          output = firstNum * secondNum;
@@ -29,6 +33,7 @@ buttons.addEventListener("click", (event) => {
    let target = event.target;
 
    if(target.classList.contains("number")) {
+      result.style.color= "";
       if(operator == null) {
          currentNumber += target.textContent;
          result.textContent = currentNumber;
@@ -54,11 +59,17 @@ else if(target.classList.contains("operator")) {
    } else if(target.classList.contains("equals")) {
       if(firstNum !== null && operator !== null && secondNum !== null) {
          currentNumber = operate(firstNum, operator, secondNum);
-         result.textContent = parseFloat(currentNumber);
-         answer = parseFloat(result.textContent);
+         if(!Number.isFinite(currentNumber)) {
+            result.textContent = "Arithmetic Error";
+            result.style.color= "red";
+         } else {
+            result.textContent = parseFloat(currentNumber);
+            answer = parseFloat(result.textContent);
+         }
          firstNum = null;
          secondNum = null;
          operator = null;
+         currentNumber = "";
       }
    }
 });

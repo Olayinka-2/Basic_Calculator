@@ -32,12 +32,7 @@ body {
    font-size: 25px;
    color: rgb(34, 33, 33);
 }
-/* .output {
-   font-size: 30px;
-   color: rgb(33, 50, 55);
-   margin: 20px 0;
-   padding: 35px;
-} */
+
 .container_buttons {
    width: 100%;
    display: flex;
@@ -54,4 +49,5 @@ button{
 
 button.operator {
    background: #443c3c;
+   color:#dad3d3;
 }
