@@ -3,6 +3,7 @@ let operator = null;
 let secondNum = null;
 let currentNumber = "";
 let result = document.querySelector("p");
+let answer = "";
 
 function operate(firstNum, operator, secondNum) {
    let output;
@@ -27,32 +28,37 @@ let buttons = document.querySelector(".container_buttons");
 buttons.addEventListener("click", (event) => {
    let target = event.target;
 
-   if(target.classList.contains("number") && operator == null) {
-      currentNumber += target.textContent;
-      result.textContent = currentNumber;
-      firstNum = parseFloat(result.textContent);
+   if(target.classList.contains("number")) {
+      if(operator == null) {
+         currentNumber += target.textContent;
+         result.textContent = currentNumber;
+         firstNum = parseFloat(result.textContent);
+      } else if(firstNum !== null && operator !== null) {
+         currentNumber += target.textContent;
+         result.textContent = currentNumber
+         secondNum = parseFloat(result.textContent);
+      }
    } 
 else if(target.classList.contains("operator")) {
-      if(currentNumber.length > 0) {
-         currentNumber = "";
-         operator = target.textContent.toString();
+      if(answer !== "" & firstNum == null) {
+         firstNum = answer
       }
+      currentNumber = "";
+      operator = target.textContent.toString();
    } else if(target.classList.contains("clear")) {
       currentNumber = "";
       firstNum = null;
       operator = null;
+      answer ="";
       result.textContent = "";
-   } else if(target.classList.contains("number") && firstNum !== null && operator !== null) {
-         currentNumber += target.textContent;
-         result.textContent = currentNumber
-         secondNum = parseFloat(result.textContent);
-   }
-else if(target.classList.contains("equals")) {
+   } else if(target.classList.contains("equals")) {
       if(firstNum !== null && operator !== null && secondNum !== null) {
          currentNumber = operate(firstNum, operator, secondNum);
          result.textContent = parseFloat(currentNumber);
-         firstNum = parseFloat(result.textContent);
+         answer = parseFloat(result.textContent);
+         firstNum = null;
+         secondNum = null;
+         operator = null;
       }
    }
 });
-
